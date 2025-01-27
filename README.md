@@ -18,6 +18,16 @@ This project is part of the 42 School curriculum and focuses on mastering the St
 
 ---
 
+### Exercise 01: Reverse Polish Notation (RPN)
+- **Description:** A program to evaluate mathematical expressions written in reverse Polish notation.
+- **Program Name:** RPN
+- **Key Features:**
+  - Supports basic mathematical operations: addition, subtraction, multiplication, and division.
+  - Validates input and handles errors gracefully.
+  - Uses STL containers to implement the stack for operand management.
+
+---
+
 ## General Information
 - All classes are designed in the Orthodox Canonical Form.
 - Memory management is carefully handled to avoid leaks.
