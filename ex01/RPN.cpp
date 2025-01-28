@@ -20,7 +20,15 @@ void RPN::fillStacks()
 	}
 	std::istringstream iss(_expression);
 	std::string token;
-	while (std::getline(iss, token, ' '))
+/*
+>> Operator
+	*-The >> operator is overloaded for std::istringstream to extract words or tokens
+		(delimited by whitespace) from the input stream (iss) one at a time.
+	*-Each time >> is used, it reads the next "token" (a substring separated by spaces)
+		from the stream and stores it in the variable token.
+*/
+
+	while (iss >> token)
 	{
 		if (token == "+" || token == "-" || token == "*" || token == "/")
 			_stackSign.push(token[0]);

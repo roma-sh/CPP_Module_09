@@ -9,6 +9,7 @@ This project is part of the 42 School curriculum and focuses on mastering the St
 ## Exercises
 
 ### Exercise 00: Bitcoin Exchange
+![ex00](ex00)
 - **Description:** A program to calculate the value of a certain amount of Bitcoin on specific dates using a provided database.
 - **Program Name:** btc
 - **Key Features:**
