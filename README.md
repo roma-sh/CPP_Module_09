@@ -20,6 +20,7 @@ This project is part of the 42 School curriculum and focuses on mastering the St
 ---
 
 ### Exercise 01: Reverse Polish Notation (RPN)
+![ex01](https://github.com/roma-sh/CPP_Module_09/blob/master/img/ex00.png)
 - **Description:** A program to evaluate mathematical expressions written in reverse Polish notation.
 - **Program Name:** RPN
 - **Key Features:**
