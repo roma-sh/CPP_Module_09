@@ -7,6 +7,8 @@
 #include <iterator>
 #include <deque>
 #include <string>
+#include <sstream>
+#include <regex>
 
 
 class PmergeMe
@@ -15,18 +17,51 @@ class PmergeMe
 	std::deque<int> _q;
 
 	public:
-		PmergeMe();
-		PmergeMe(PmergeMe const &original);
-		PmergeMe &operator=(PmergeMe const &original);
-		~PmergeMe();
+		PmergeMe() {};
+		PmergeMe(PmergeMe const &original)
+		{
+			_v = original._v;
+			_q = original._q;
+		}
 
-		void fillVector(int argc, char **argv);
-		void fillDeque(int argc, char **argv);
-		void printVector();
-		void printDeque();
-		void sortVector();
-		void sortDeque();
+		PmergeMe &operator=(PmergeMe const &original)
+		{
+			if (this != &original)
+			{
+				_v = original._v;
+				_q = original._q;
+			}
+			return *this;
+		}
+		~PmergeMe() {};
+
+		void fillVector(std::vector<std::string> &arguments)
+		{
+			for (std::vector<std::string>::iterator it = arguments.begin(); it != arguments.end(); it++)
+			{
+				_v.push_back(std::stoi(*it));
+			}
+		}
+		void fillDeque(std::vector<std::string> &arguments)
+		{
+			for (std::vector<std::string>::iterator it = arguments.begin(); it != arguments.end(); it++)
+			{
+				_q.push_back(std::stoi(*it));
+			}
+		}
+		void printVector()
+		{
+			std::copy(_v.begin(), _v.end(), std::ostream_iterator<int>(std::cout, " "));
+			std::cout << std::endl;
+		}
+		void printDeque()
+		{
+			std::copy(_q.begin(), _q.end(), std::ostream_iterator<int>(std::cout, " "));
+			std::cout << std::endl;
+		}
 };
+
+
 
 
 #endif
