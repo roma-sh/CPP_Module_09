@@ -65,30 +65,28 @@ int main(int argc, char **argv)
 	pm.fillVector(arguments);
 	pm.fillDeque(arguments);
 
-	std::cout << "Before: ";
-	pm.printVector();
+	// std::cout << "Before: ";
+	// pm.printVector();
 	clock_t start = clock();
-	// to_do: pm.sortVector();
+	pm.sort_vec();
 	clock_t end = clock();
-	std::cout << "After: ";
-	pm.printVector();
+	// std::cout << "After: ";
+	// pm.printVector();
 
-	double elapsed = double(end - start) / CLOCKS_PER_SEC * 1000000;
-	std::cout << "Time taken to sort vector: " << elapsed << "us" << std::endl;
+	double elapsed = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1e6;
 
+	std::cout << "Time to process a range of " << arguments.size() << " elements with std::vector : " << elapsed << "us" << std::endl;
 
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-	std::cout << "Before: ";
-	pm.printDeque();
+	// std::cout << "Before: ";
+	// pm.printDeque();
 	start = clock();
-	// to_do: pm.sortDeque();
+	pm.sort_deque();
 	end = clock();
-	std::cout << "After: ";
-	pm.printDeque();
-	elapsed = double(end - start) / CLOCKS_PER_SEC * 1000000;
-	std::cout << "Time taken to sort deque: " << elapsed << "us" << std::endl;
+	// std::cout << "After: ";
+	// pm.printDeque();
+	elapsed = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1e6;
+
+	std::cout << "Time to process a range of " << arguments.size() << " elements with std::deque : " << elapsed << "us" << std::endl;
 
 
 	return 0;
