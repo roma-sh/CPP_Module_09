@@ -65,13 +65,13 @@ int main(int argc, char **argv)
 	pm.fillVector(arguments);
 	pm.fillDeque(arguments);
 
-	// std::cout << "Before: ";
-	// pm.printVector();
+	std::cout << "Before: ";
+	pm.printVector();
 	clock_t start = clock();
 	pm.sort_vec();
 	clock_t end = clock();
-	// std::cout << "After: ";
-	// pm.printVector();
+	std::cout << "After: ";
+	pm.printVector();
 
 	double elapsed = static_cast<double>(end - start) / CLOCKS_PER_SEC * 1e6;
 
