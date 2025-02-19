@@ -25,9 +25,7 @@ BitcoinExchange::BitcoinExchange(std::string filename)
 	_filename = filename;
 	std::ifstream file(filename);
 	if (!file.is_open())
-	{
 		throw std::runtime_error("Could not open database file");
-	}
 
 	std::string line;
 
@@ -66,21 +64,17 @@ BitcoinExchange::BitcoinExchange(std::string filename)
 void BitcoinExchange::printData() const
 {
 	for (auto it = _data.begin(); it != _data.end(); it++) // auto +11 standard
-	{
 		std::cout << it->first << " " << it->second << std::endl;
-	}
 }
 
 double BitcoinExchange::getExchangeRate(std::string date) const
 {
-	auto it = _data.find(date);
+	auto it = _data.find(date); // find searches for the key date in the map not in the value
 	if (it == _data.end())
 	{
 		it = _data.lower_bound(date); // returns the first element that is not less than date (>= date)
 		if (it == _data.begin())
-		{
-			throw std::runtime_error("Date not found in database");
-		}
+			throw std::runtime_error("Date not found in database or less than the earliest date");
 		it--;
 	}
 	return it->second;
@@ -93,9 +87,7 @@ void BitcoinExchange::handleInputFile(std::string filename)
 	bool valid_Rate;
 	std::ifstream file(filename);
 	if (!file.is_open())
-	{
 		throw std::runtime_error("Could not open input file");
-	}
 	std::string line;
 
 	while (std::getline(file, line))
@@ -121,15 +113,30 @@ void BitcoinExchange::handleInputFile(std::string filename)
 				else if (input_value < -2147483647)
 					std::cerr << "Error: number too small." << std::endl;
 				else
-					std::cout << input_date << " => " << input_value_str << " = " << getExchangeRate(input_date) * input_value << std::endl;
+				{
+					try
+					{
+						std::cout << input_date << " => " << input_value_str << " = " << getExchangeRate(input_date) * input_value << std::endl;
+					}
+					catch (const std::exception &e)
+					{
+						std::cerr << "Error: " << e.what() << std::endl;
+					}
+				}
 			}
 			else if (!valid_Date)
 			{
-				std::cerr << "Error: incorrect date => " << input_date << std::endl;
+				if (input_date.empty())
+					std::cerr << "Error: missing date." << std::endl;
+				else
+					std::cerr << "Error: incorrect date => " << input_date << std::endl;
 			}
 			else if (!valid_Rate)
 			{
-				std::cerr << "Error: incorrect value => " << input_value_str << std::endl;
+				if (input_value_str.empty())
+					std::cerr << "Error: missing value." << std::endl;
+				else
+					std::cerr << "Error: incorrect value => " << input_value_str << std::endl;
 			}
 		}
 		else
@@ -143,6 +150,7 @@ bool validDate(std::string date)
 	std::regex dateFormat("^\\s*\\d{4}-\\d{2}-\\d{2}\\s*$");
 	/*
 	^ and $: Ensure the entire string matches the pattern.
+	$ : Ensures that no extra characters appear after the matched pattern.
 	\\s*:
 	Matches zero or more whitespace characters (\s stands for whitespace).
 	Adding \\s* at the beginning allows leading spaces.
@@ -154,12 +162,12 @@ bool validDate(std::string date)
 	int year = std::stoi(date.substr(0, 4));
 	int month = std::stoi(date.substr(5, 2));
 	int day = std::stoi(date.substr(8, 2));
-	if (month < 1 || month > 12)
+	if ((month < 1 || month > 12) || (year > 2025 || year < 2008))
 		return false;
 	int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	if (isLeapYear(year))
 		daysInMonth[1] = 29; // February has 29 days in a leap year
-	if (day < 1 || day > daysInMonth[month - 1])
+	if (day < 1 || day > daysInMonth[month - 1]) // Check if the day is valid for the month
 		return false;
 	return true;
 }

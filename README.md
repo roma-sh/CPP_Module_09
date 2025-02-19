@@ -30,6 +30,16 @@ This project is part of the 42 School curriculum and focuses on mastering the St
 
 ---
 
+### Exercise 02: PmergeMe
+- **Description:** A program implementing the merge-insert sort (Ford-Johnson algorithm) to sort a sequence of positive integers.
+- **Program Name:** PmergeMe
+- **Key Features:**
+  - Processes large datasets, capable of handling sequences with thousands of integers.
+  - Uses two STL containers for sorting and data management.
+  - Displays performance metrics for each container used.
+
+---
+
 ## General Information
 - All classes are designed in the Orthodox Canonical Form.
 - Memory management is carefully handled to avoid leaks.

@@ -65,23 +65,23 @@ double RPN::calculate()
 		_stackSign.pop();
 		switch (sign)
 		{
-		case '+':
-			result = a + b;
-			break;
-		case '-':
-			result = a - b;
-			break;
-		case '*':
-			result = a * b;
-			break;
-		case '/':
-			if (b == 0)
-			{
-				std::cerr << "Error: division by zero" << std::endl;
-				exit(1);
-			}
-			result = a / b;
-			break;
+			case '+':
+				result = a + b;
+				break;
+			case '-':
+				result = a - b;
+				break;
+			case '*':
+				result = a * b;
+				break;
+			case '/':
+				if (b == 0)
+				{
+					std::cerr << "Error: division by zero" << std::endl;
+					exit(1);
+				}
+				result = a / b;
+				break;
 		}
 		_stackNum.push(result);
 	}
@@ -93,21 +93,21 @@ bool RPN::isValidExpression() const
 {
 	std::istringstream iss(_expression);
 	std::string token;
-	int operandCount = 0;
+	int numCount = 0;
 	int operatorCount = 0;
 
 	while (iss >> token)
 	{
-		if (isdigit(token[0])) {
-			operandCount++;
-		} else if (token.size() == 1 && (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/')) {
+		if (isdigit(token[0]))
+			numCount++;
+		else if (token.size() == 1 && (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/'))
+		{
 			operatorCount++;
-			if (operatorCount >= operandCount) {
+			if (operatorCount >= numCount)
 				return false;
-			}
-		} else {
-			return false;
 		}
+		else
+			return false;
 	}
-	return operandCount > 1 && operandCount == operatorCount + 1;
+	return numCount > 1 && numCount == operatorCount + 1;
 }

@@ -58,3 +58,6 @@ print_cpp:
 	@echo "$(Coral)    CC:::::::::::::::CP::::::::P          P::::::::P           00:::::::::::::00      9::::::9"
 	@echo "$(Lavender)      CCC::::::::::::CP::::::::P          P::::::::P             00:::::::::00       9::::::9"
 	@echo "$(Chartreuse)         CCCCCCCCCCCCCPPPPPPPPPP          PPPPPPPPPP               000000000        99999999"
+
+
+ # https://miro.com/app/board/uXjVLpAEz6k=/?share_link_id=690822416418
