@@ -92,8 +92,20 @@ void BitcoinExchange::handleInputFile(std::string filename)
 
 	while (std::getline(file, line))
 	{
-		if (line.empty() || line == "date | value")
+		if (line.empty())
 			continue;
+		if (line != "date | value")
+		{
+			std::cout <<"\"date | value\" line is missing or not correct in the input file"<< std::endl;
+			exit(1);
+		}
+		else
+			break;
+	}
+
+
+	while (std::getline(file, line))
+	{
 
 		std::istringstream ss(line);
 		std::string input_date, input_value_str;
@@ -108,10 +120,8 @@ void BitcoinExchange::handleInputFile(std::string filename)
 				// std::cout<<"the number is : "<<input_value<<std::endl;
 				if (input_value < 0)
 					std::cerr << "Error: not a positive number." << std::endl;
-				else if (input_value >= 2147483648)
+				else if (input_value >= 1000)
 					std::cerr << "Error: number too large." << std::endl;
-				else if (input_value < -2147483647)
-					std::cerr << "Error: number too small." << std::endl;
 				else
 				{
 					try
