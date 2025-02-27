@@ -31,9 +31,19 @@ BitcoinExchange::BitcoinExchange(std::string filename)
 
 	while (std::getline(file, line))
 	{
-		if (line.empty() || line == "date,exchange_rate")
+		if (line.empty())
 			continue;
+		else if (line == "date,exchange_rate")
+			break;
+		else
+		{
+			std::cerr<< "Invalid database file format" << std::endl;
+			exit(1);
+		}
+	}
 
+	while (std::getline(file, line))
+	{
 		// Parse the line (date,exchange_rate)
 		std::istringstream ss(line);
 		/*
@@ -94,19 +104,17 @@ void BitcoinExchange::handleInputFile(std::string filename)
 	{
 		if (line.empty())
 			continue;
-		if (line != "date | value")
+		else if (line == "date | value")
+			break;
+		else
 		{
-			std::cout <<"\"date | value\" line is missing or not correct in the input file"<< std::endl;
+			std::cerr<< "Invalid input file format" << std::endl;
 			exit(1);
 		}
-		else
-			break;
 	}
-
 
 	while (std::getline(file, line))
 	{
-
 		std::istringstream ss(line);
 		std::string input_date, input_value_str;
 
